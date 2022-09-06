@@ -49,7 +49,13 @@ Blog.sync();
 
 app.get("/api/blogs", async (req, res) => {
   const blogs = await Blog.findAll();
-  console.log(JSON.stringify(blogs, null, 2));
+  console.log(
+    JSON.stringify(
+      blogs.map((n) => `${n.author}: '${n.title}', ${n.likes} likes`),
+      null,
+      2
+    )
+  );
   res.json(blogs);
 });
 
