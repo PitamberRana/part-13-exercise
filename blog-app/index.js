@@ -72,21 +72,9 @@ app.post("/api/blogs", async (req, res) => {
 });
 
 app.delete("/api/blogs/:id", (request, response) => {
-  Blog.findByPkAndRemove(request.params.id).then(() => {
-    response.status(204).end();
-  });
+  Blog.findByPkAndRemove(request.params.id);
+  return response.status(204).end();
 });
-
-// app.put('/api/blogs/:id', async (req, res) => {
-//     const note = await Blog.findByPk(req.params.id)
-//     if (blog) {
-//       blog.important = req.body.important
-//       await blog.save()
-//       res.json(blog)
-//     } else {
-//       res.status(404).end()
-//     }
-//   })
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
