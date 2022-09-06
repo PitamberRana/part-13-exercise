@@ -2,6 +2,7 @@ require("dotenv").config();
 const { Sequelize, Model, DataTypes } = require("sequelize");
 const express = require("express");
 const app = express();
+app.use(express.json());
 
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
   dialectOptions: {
@@ -22,7 +23,6 @@ Blog.init(
     },
     author: {
       type: DataTypes.TEXT,
-      allowNull: false,
     },
     url: {
       type: DataTypes.TEXT,
@@ -77,9 +77,14 @@ app.post("/api/blogs", async (req, res) => {
   }
 });
 
-app.delete("/api/blogs/:id", (request, response) => {
-  Blog.findByPkAndRemove(request.params.id);
-  return response.status(204).end();
+app.delete("/api/blogs/:id", async (request, response) => {
+  const blog = await Blog.findByPk(request.params.id);
+  await Blog.destroy({
+    where: {
+      author: blog.author,
+    },
+  });
+  response.status(200).json({ message: "blog deleted" });
 });
 
 const PORT = process.env.PORT || 3001;

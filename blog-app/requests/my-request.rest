@@ -1,0 +1,15 @@
+POST http://localhost:3001/api/blogs
+Content-Type: application/json; charset=utf-8
+
+
+{
+"author":"Dhurmus", 
+"url":"google.com",
+"title": "Garib ko jhupadi"
+}
+
+### 
+GET http://localhost:3001/api/blogs/
+
+###
+DELETE http://localhost:3001/api/blogs/5
