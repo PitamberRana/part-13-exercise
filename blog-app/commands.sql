@@ -8,5 +8,6 @@ CREATE TABLE blogs (
 
 insert into blogs (author,url,title) values ('macBook', 'google.com','garib manxey');
 insert into blogs (author,url,title) values('Hari Bahadur', 'wikipedia.org','fateko jutta');
+insert into blogs (author,url,title) values ('Madan Bahadur', 'google.com','dhungey mutu');
 
 select * from blogs;
