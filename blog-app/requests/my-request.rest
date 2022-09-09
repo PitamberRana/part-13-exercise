@@ -1,19 +1,19 @@
 POST http://localhost:3001/api/blogs
 Content-Type: application/json; charset=utf-8
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImthbWFsVCIsImlkIjoxLCJpYXQiOjE2NjI2MzQ4ODN9.eM9xEulJam7CVRq1I-QRvk5Bp79qC5TYy-L2hqw1G8M
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImthbWFsVCIsImlkIjoxLCJpYXQiOjE2NjI2NjM3ODZ9.v98myP4tjR96V_dDmB46BxpwZ63KymUYqfbnALRgalY
 
 
 {
-"author":"Hari Bahadur", 
-"url":"wikipedia.org",
-"title": "fateko jutta"
+"author":"Madan Bahadur", 
+"url":"facebook.com",
+"title": "train ko tire"
 }
 
 ### 
 GET http://localhost:3001/api/blogs/
 
 ###
-DELETE http://localhost:3001/api/blogs/5
+DELETE http://localhost:3001/api/blogs/6
 
 ###
 POST http://localhost:3001/api/users/
@@ -41,4 +41,7 @@ Content-Type: application/json; charset=utf-8
 {
 "likes": 3
 }
+
+###
+PUT http://localhost:3001/api/users/username
 
