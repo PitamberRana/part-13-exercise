@@ -1,34 +1,33 @@
 const router = require("express").Router();
 const { Blog, User } = require("../models");
-const { SECRET } = require("../utils/config");
-const jwt = require("jsonwebtoken");
+const { tokenExtractor } = require("../utils/middleware");
+const { Op } = require("sequelize");
 
 const blogFinder = async (req, res, next) => {
   req.blog = await Blog.findByPk(req.params.id);
   next();
 };
 
-const tokenExtractor = (req, res, next) => {
-  const authorization = req.get("authorization");
-  if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
-    try {
-      req.decodedToken = jwt.verify(authorization.substring(7), SECRET);
-    } catch {
-      res.status(401).json({ error: "token invalid" });
-    }
-  } else {
-    res.status(401).json({ error: "token missing" });
-  }
-  next();
-};
-
 router.get("/", async (req, res) => {
+  let where = {};
+
+  if (req.query.search) {
+    where = {
+      [Op.or]: [
+        { author: { [Op.iLike]: `%${req.query.search}%` } },
+        { title: { [Op.iLike]: `%${req.query.search}%` } },
+      ],
+    };
+  }
+
   const blogs = await Blog.findAll({
     attributes: { exclude: ["userId"] },
     include: {
       model: User,
       attributes: ["name"],
     },
+    where,
+    order: [["likes", "DESC"]],
   });
   console.log(
     JSON.stringify(
@@ -70,15 +69,6 @@ router.delete("/:id", blogFinder, async (req, res) => {
 router.put("/:id", blogFinder, async (req, res) => {
   if (req.blog) {
     (req.blog.likes = req.body.likes), await req.blog.save();
-    res.json(req.blog);
-  } else {
-    res.status(204).end();
-  }
-});
-
-router.put("/:username", blogFinder, async (req, res) => {
-  if (req.blog) {
-    (req.blog.username = req.body.username), await req.blog.save();
     res.json(req.blog);
   } else {
     res.status(204).end();
