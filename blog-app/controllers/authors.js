@@ -7,7 +7,7 @@ router.get("/", async (req, res) => {
     attributes: [
       "author",
       [sequelize.fn("count", sequelize.col("title")), "articles"],
-      [sequelize.fn("count", sequelize.col("likes")), "likes"],
+      [sequelize.fn("sum", sequelize.col("likes")), "likes"],
     ],
     group: ["author"],
   });

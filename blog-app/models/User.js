@@ -1,9 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
-
 const { sequelize } = require("../utils/db");
 
 class User extends Model {}
-
 User.init(
   {
     id: {
@@ -12,19 +10,26 @@ User.init(
       autoIncrement: true,
     },
     username: {
-      type: DataTypes.STRING,
-      unique: true,
+      type: DataTypes.TEXT,
       allowNull: false,
+      validate: {
+        isEmail: true,
+      },
+      error: ["Validation isEmail on username failed"],
     },
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    passwordHash: {
+      type: DataTypes.TEXT,
       allowNull: false,
     },
   },
   {
     sequelize,
     underscored: true,
-    timestamps: false,
+    timestamps: true,
     modelName: "user",
   }
 );

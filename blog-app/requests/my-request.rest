@@ -1,12 +1,12 @@
 POST http://localhost:3001/api/blogs
 Content-Type: application/json; charset=utf-8
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImthbWFsVCIsImlkIjoxLCJpYXQiOjE2NjI2NjM3ODZ9.v98myP4tjR96V_dDmB46BxpwZ63KymUYqfbnALRgalY
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRoaXJkIiwiaWQiOjMsImlhdCI6MTY2MzIzNTk2MH0.nxAW1JSADeADs3o_ZhTHr3EYZwxtFRbNrgUproxRXOg
 
 
 {
-"author":"paadey", 
-"url":"facebook.com",
-"title": "train ko tire ma hawa var"
+"author":"dhurmus", 
+"url":"google.com",
+"title": "fateko jutta"
 }
 
 ### 
@@ -27,8 +27,9 @@ Content-Type: application/json; charset=utf-8
 
 
 {
-    "username":"kamalT",
-    "name":"kamal"
+    "username":"forth",
+    "name":"sita",
+    "disabled": false
 }
 
 ###
@@ -36,16 +37,16 @@ POST http://localhost:3001/api/login/
 Content-Type: application/json; charset=utf-8
 
 {
-    "username":"kamalT",
+    "username":"third",
     "password":"secret"
 }
 
 ### 
-PUT http://localhost:3001/api/blogs/3
+PUT http://localhost:3001/api/blogs/2
 Content-Type: application/json; charset=utf-8
 
 {
-"likes": 2
+"likes": 3
 }
 
 ###
@@ -55,4 +56,14 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imhhc
 
 {
     "disabled":false
+}
+
+###
+POST http://localhost:3001/api/readinglists/
+Content-Type: application/json; charset=utf-8
+
+
+{
+    "username":"forth",
+    "name":"sita"
 }
